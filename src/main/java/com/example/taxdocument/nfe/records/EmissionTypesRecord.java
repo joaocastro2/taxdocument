@@ -1,9 +1,9 @@
-package com.example.taxdocument.nfe;
+package com.example.taxdocument.nfe.records;
 
 public record EmissionTypesRecord(
 
-        String NormalEmission
-        String Contingency issuance
+        String NormalEmission,
+        String ContingencyIssuance
 
 ) {
 }
