@@ -1,4 +1,4 @@
-package com.example.taxdocument.nfe.model;
+﻿package com.example.taxdocument.nfe.model;
 
 public class TotalNfeModel {
 }
