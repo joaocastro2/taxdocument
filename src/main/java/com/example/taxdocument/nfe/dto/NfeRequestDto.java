@@ -1,7 +1,9 @@
 package com.example.taxdocument.nfe.dto;
 
-public class NfeRequestDto {
+import com.example.taxdocument.nfe.model.*;
 
+import java.util.List;
 
+public record NfeRequestDto(
 
-}
+) {}
