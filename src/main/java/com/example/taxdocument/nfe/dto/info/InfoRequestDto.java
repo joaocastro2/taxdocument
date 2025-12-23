@@ -1,19 +1,18 @@
-package com.example.taxdocument.nfe.dto;
+package com.example.taxdocument.nfe.dto.info;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
 public record InfoRequestDto(
-
         @Valid
         @NotEmpty(message = "The numeric state code cannot be empty.")
         Integer ufCodeDto,
 
         @Valid
-        @NotNull(message = "The nature of the operation cannot be zero.")
+        @NotBlank(message = "The nature of the operation cannot be zero.")
         String natOperationDto,
 
         @Valid
@@ -29,7 +28,7 @@ public record InfoRequestDto(
         Integer numberNfDto,
 
         @Valid
-        @NotEmpty(message = "Date and hour cannot be empty.")
+        @NotBlank(message = "Date and hour cannot be empty.")
         LocalDateTime dateTimeEmissionDto,
 
         @Valid
@@ -73,13 +72,10 @@ public record InfoRequestDto(
         Integer procEmiDto,
 
         @Valid
-        @NotNull(message = "Process version cannot be null")
+        @NotBlank(message = "Process version cannot be null")
         String verProcDto,
 
         @Valid
         @NotEmpty(message = "Intermediate Indicator cannot be empty")
-        Integer indIntermedDto
-
-
-) {
+        Integer indIntermedDto){
 }
