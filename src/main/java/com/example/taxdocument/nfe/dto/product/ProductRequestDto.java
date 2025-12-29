@@ -1,12 +1,15 @@
 package com.example.taxdocument.nfe.dto.product;
 
-import com.fincatto.documentofiscal.nfe310.classes.nota.NFNotaInfoItemImposto;
+import com.example.taxdocument.nfe.dto.icms.*;
+import com.example.taxdocument.nfe.dto.origin.NFOriginRequestDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-import javax.crypto.Mac;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
 public record ProductRequestDto(
 
@@ -80,11 +83,11 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS(
 
-            NFNotaInfoItemImpostoICMS00 icms00,
+            Icms00RequestDto icms00,
 
-            NFNotaInfoItemImpostoICMS02 icms02,
+            Icms02RequestDto icms02,
 
-            NFNotaInfoItemImpostoICMS10 icms10,
+            Icms10RequestDto icms10,
 
             NFNotaInfoItemImpostoICMS15 icms15,
 
@@ -124,120 +127,13 @@ public record ProductRequestDto(
 
     ){}
 
-    public record NFNotaInfoItemImpostoICMS00(
 
-            NFOrigem origem,
-
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
-
-            NFNotaInfoItemModalidadeBCICMS modalidadeBCICMS,
-
-            String valorBaseCalculo,
-
-            String percentualAliquota,
-
-            String valorTributo,
-
-            String percentualFundoCombatePobreza,
-
-            String valorFundoCombatePobreza
-
-    ){}
-
-    public record NFOrigem(
-
-            String codigo,
-            String descricao
-
-    ){}
-
-    public record NFNotaInfoImpostoTributacaoICMS(
-
-            String codigo,
-            String descricao
-
-    ){}
-
-    public record NFNotaInfoItemModalidadeBCICMS(
-
-            String codigo,
-            String descricao
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMS02(
-            NFOrigem origem,
-
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
-
-            String quantidadeBaseCalculo,
-
-            String percentualAliquota,
-
-            String valorTributo
-    ){}
-
-    public record NFNotaInfoItemImpostoICMS10(
-
-            NFOrigem origem,
-
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
-
-            NFNotaInfoItemModalidadeBCICMS modalidadeBCICMS,
-
-            String valorBaseCalculo,
-
-            String percentualAliquota,
-
-            String valorTributo,
-
-            String valorBaseCalculoFundoCombatePobreza,
-
-            String percentualFundoCombatePobreza,
-
-            String valorFundoCombatePobreza,
-
-            NFNotaInfoItemModalidadeBCICMSST modalidadeBCICMSST,
-
-            String percentualMargemValorAdicionadoICMSST,
-
-            String percentualReducaoBCICMSST,
-
-            String valorBCICMSST,
-
-            String percentualAliquotaImpostoICMSST,
-
-            String valorICMSST,
-
-            String valorBCFundoCombatePobrezaST,
-
-            String percentualFundoCombatePobrezaST,
-
-            String valorFundoCombatePobrezaST,
-
-            String valorICMSSTDesonerado,
-
-            NFNotaMotivoDesoneracaoICMS motivoDesoneracaoICMSST
-
-    ){}
-
-    public record NFNotaInfoItemModalidadeBCICMSST(
-
-            String codigo,
-            String descricao
-
-    ){}
-
-    public record NFNotaMotivoDesoneracaoICMS(
-            String codigo,
-            String descricao
-    ){}
 
     public record NFNotaInfoItemImpostoICMS15(
 
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
             String quantidadeBaseCalculo,
 
@@ -265,11 +161,11 @@ public record ProductRequestDto(
     ){}
 
     public record NFNotaInfoItemImpostoICMS20(
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
-            NFNotaInfoItemModalidadeBCICMS modalidadeBCICMS,
+            IcmsModalityRequestDto modalidadeBCICMS,
 
             String percentualReducaoBC,
 
@@ -287,7 +183,7 @@ public record ProductRequestDto(
 
             String valorICMSDesoneracao,
 
-            NFNotaMotivoDesoneracaoICMS desoneracao,
+            IcmsExcemptionReasonDto desoneracao,
 
             NFTipoDeducaoIcms indicaDeduzDesoneracao
 
@@ -302,11 +198,11 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS30(
 
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
-            NFNotaInfoItemModalidadeBCICMSST modalidadeBCICMSST,
+            IcmsHasModalityBC modalidadeBCICMSST,
 
             String percentualMargemValorAdicionadoICMSST,
 
@@ -326,7 +222,7 @@ public record ProductRequestDto(
 
             String valorICMSDesoneracao,
 
-            NFNotaMotivoDesoneracaoICMS desoneracao,
+            IcmsExcemptionReasonDto desoneracao,
 
             NFTipoDeducaoIcms indicaDeduzDesoneracao
 
@@ -334,13 +230,13 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS40(
 
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
             String valorICMSDesoneracao,
 
-            NFNotaMotivoDesoneracaoICMS motivoDesoneracaoICMS,
+            IcmsExcemptionReasonDto motivoDesoneracaoICMS,
 
             NFTipoDeducaoIcms indicaDeduzDesoneracao
 
@@ -348,11 +244,11 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS51(
 
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
-            NFNotaInfoItemModalidadeBCICMS modalidadeBCICMS,
+            IcmsModalityRequestDto modalidadeBCICMS,
 
             String percentualReducaoBC,
 
@@ -387,9 +283,9 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS53(
 
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
             String quantidadeBaseCalculo,
 
@@ -407,9 +303,9 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS60(
 
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
             String valorBCICMSSTRetido,
 
@@ -437,9 +333,9 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS61(
 
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
             String quantidadeBaseCalculo,
 
@@ -451,11 +347,11 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS70(
 
-            NFOrigem origem,
+            NFOriginRequestDto origem,
 
-            NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+            IcmsTaxRequestDto situacaoTributaria,
 
-            NFNotaInfoItemModalidadeBCICMS modalidadeBCICMS,
+            IcmsModalityRequestDto modalidadeBCICMS,
 
             String percentualReducaoBC,
 
@@ -471,7 +367,7 @@ public record ProductRequestDto(
 
             String valorFundoCombatePobreza,
 
-            NFNotaInfoItemModalidadeBCICMSST modalidadeBCICMSST,
+            IcmsHasModalityBC modalidadeBCICMSST,
 
             String percentualMargemValorAdicionadoICMSST,
 
@@ -491,11 +387,11 @@ public record ProductRequestDto(
 
             String valorICMSDesoneracao,
 
-            NFNotaMotivoDesoneracaoICMS desoneracao,
+            IcmsExcemptionReasonDto desoneracao,
 
             String valorICMSSTDesonerado,
 
-            NFNotaMotivoDesoneracaoICMS motivoDesoneracaoICMSST,
+            IcmsExcemptionReasonDto motivoDesoneracaoICMSST,
 
             NFTipoDeducaoIcms indicaDeduzDesoneracao
 
@@ -503,11 +399,11 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS90(
 
-    NFOrigem origem,
+    NFOriginRequestDto origem,
 
-    NFNotaInfoImpostoTributacaoICMS situacaoTributaria,
+    IcmsTaxRequestDto situacaoTributaria,
 
-    NFNotaInfoItemModalidadeBCICMS modalidadeBCICMS,
+    IcmsModalityRequestDto modalidadeBCICMS,
 
     String valorBC,
 
@@ -523,7 +419,7 @@ public record ProductRequestDto(
 
     String valorFundoCombatePobreza,
 
-    NFNotaInfoItemModalidadeBCICMSST modalidadeBCICMSST,
+    IcmsHasModalityBC modalidadeBCICMSST,
 
     String percentualMargemValorAdicionadoICMSST,
 
@@ -543,14 +439,696 @@ public record ProductRequestDto(
 
     String valorICMSDesoneracao,
 
-    NFNotaMotivoDesoneracaoICMS desoneracao,
+    IcmsExcemptionReasonDto desoneracao,
 
     String valorICMSSTDesonerado,
 
-    NFNotaMotivoDesoneracaoICMS motivoDesoneracaoICMSST,
+    IcmsExcemptionReasonDto motivoDesoneracaoICMSST,
 
     NFTipoDeducaoIcms indicaDeduzDesoneracao
 
     ){}
+
+    public record NFNotaInfoItemImpostoICMSPartilhado (
+
+            NFOriginRequestDto origem,
+
+            IcmsTaxRequestDto situacaoTributaria,
+
+            IcmsModalityRequestDto modalidadeBCICMS,
+
+            String valorBCICMS,
+
+            String percentualReducaoBC,
+
+            String percentualAliquotaImposto,
+
+            String valorICMS,
+
+            IcmsHasModalityBC modalidadeBCICMSST,
+
+            String percentualMargemValorAdicionadoICMSST,
+
+            String percentualReducaoBCICMSST,
+
+            String valorBCICMSST,
+
+            String percentualAliquotaImpostoICMSST,
+
+            String valorICMSST,
+
+            String percentualBCOperacaoPropria,
+
+            String ufICMSST
+
+    ){}
+
+    public record NFNotaInfoItemImpostoICMSST(
+            NFOriginRequestDto origem,
+
+            IcmsTaxRequestDto situacaoTributaria,
+
+            String valorBCICMSSTRetidoUFRemetente,
+
+            String aliqSuportadaConsFinal,
+
+            String valorICMSSubstituto,
+
+            String valorICMSSTRetidoUFRemetente,
+
+            String valorBCFundoCombatePobrezaRetidoST,
+
+            String percentualFundoCombatePobrezaRetidoST,
+
+            String valorFundoCombatePobrezaRetidoST,
+
+            String valorBCICMSSTUFDestino,
+
+            String valorICMSSTUFDestino,
+
+            String percentualReducaoBCEfetiva,
+
+            String valorBCEfetiva,
+
+            String percentualAliquotaICMSEfetiva,
+
+            String valorICMSEfetivo
+    ){}
+
+    public record NFNotaInfoItemImpostoICMSSN101(
+            NFOriginRequestDto origem,
+
+            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+
+            String percentualAliquotaAplicavelCalculoCreditoSN,
+
+            String valorCreditoICMSSN
+    ){}
+
+    public record NFNotaSituacaoOperacionalSimplesNacional(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemImpostoICMSSN102(
+            NFOriginRequestDto origem,
+
+            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN
+    ){}
+
+    public record NFNotaInfoItemImpostoICMSSN201(
+
+            NFOriginRequestDto origem,
+
+            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+
+            IcmsHasModalityBC modalidadeBCICMSST,
+
+            String percentualMargemValorAdicionadoICMSST,
+
+            String percentualReducaoBCICMSST,
+
+            String valorBCICMSST,
+
+            String percentualAliquotaImpostoICMSST,
+
+            String valorICMSST,
+
+            String valorBCFundoCombatePobrezaST,
+
+            String percentualFundoCombatePobrezaST,
+
+            String valorFundoCombatePobrezaST,
+
+            String percentualAliquotaAplicavelCalculoCreditoSN,
+
+            String valorCreditoICMSSN
+    ){}
+
+    public record NFNotaInfoItemImpostoICMSSN202(
+            NFOriginRequestDto origem,
+
+            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+
+            IcmsHasModalityBC modalidadeBCICMSST,
+
+            String percentualMargemValorAdicionadoICMSST,
+
+            String percentualReducaoBCICMSST,
+
+            String valorBCICMSST,
+
+            String percentualAliquotaImpostoICMSST,
+
+            String valorICMSST,
+
+            String valorBCFundoCombatePobrezaST,
+
+            String percentualFundoCombatePobrezaST,
+
+            String valorFundoCombatePobrezaST
+    ){}
+
+    public record NFNotaInfoItemImpostoICMSSN500(
+            NFOriginRequestDto origem,
+
+            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+
+            String valorBCICMSSTRetido,
+
+            String percentualICMSSTRetido,
+
+            String valorICMSSubstituto,
+
+            String valorICMSSTRetido,
+
+            String valorBCFundoCombatePobrezaRetidoST,
+
+            String percentualFundoCombatePobrezaRetidoST,
+
+            String valorFundoCombatePobrezaRetidoST,
+
+            String percentualReducaoBCEfetiva,
+
+            String valorBCEfetiva,
+
+            String percentualAliquotaICMSEfetiva,
+
+            String valorICMSEfetivo
+    ){}
+
+    public record NFNotaInfoItemImpostoICMSSN900(
+
+            NFOriginRequestDto origem,
+
+            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+
+            IcmsModalityRequestDto modalidadeBCICMS,
+
+            String valorBCICMS,
+
+            String percentualReducaoBC,
+
+            String percentualAliquotaImposto,
+
+            String valorICMS,
+
+            IcmsHasModalityBC modalidadeBCICMSST,
+
+            String percentualMargemValorAdicionadoICMSST,
+
+            String percentualReducaoBCICMSST,
+
+            String valorBCICMSST,
+
+            String percentualAliquotaImpostoICMSST,
+
+            String valorICMSST,
+
+            String valorBCFundoCombatePobrezaST,
+
+            String percentualFundoCombatePobrezaST,
+
+            String valorFundoCombatePobrezaST,
+
+            String percentualAliquotaAplicavelCalculoCreditoSN,
+
+            String valorCreditoICMSSN
+
+    ){}
+
+    public record NFNotaInfoItemImpostoIPI(
+            String cnpjProdutor,
+
+            String codigoSelo,
+
+            BigInteger quantidadeSelo,
+
+            String codigoEnquadramento,
+
+            NFNotaInfoItemImpostoIPITributado tributado,
+
+            NFNotaInfoItemImpostoIPINaoTributado naoTributado
+
+    ){}
+
+    public record NFNotaInfoItemImpostoIPITributado(
+            NFNotaInfoSituacaoTributariaIPI situacaoTributaria,
+
+            String valorBaseCalculo,
+
+            String percentualAliquota,
+
+            String quantidade,
+
+            String valorUnidadeTributavel,
+
+            String valorTributo
+    ){}
+
+    public record NFNotaInfoSituacaoTributariaIPI(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemImpostoIPINaoTributado(
+            NFNotaInfoSituacaoTributariaIPI situacaoTributaria
+    ){}
+
+    public record NFNotaInfoItemImpostoImportacao(
+            String valorBaseCalculo,
+
+            String valorDespesaAduaneira,
+
+            String valorImpostoImportacao,
+
+            String valorIOF
+    ){}
+
+    public record NFNotaInfoItemImpostoISSQN(
+            String valorBaseCalculo,
+
+            String valorAliquota,
+
+            String valor,
+
+            Integer codigoMunicipio,
+
+            String itemListaServicos,
+
+            String valorDeducao,
+
+            String valorOutro,
+
+            String valorDescontoIncondicionado,
+
+            String valorDescontoCondicionado,
+
+            String valorRetencaoISS,
+
+            NFNotaInfoItemIndicadorExigibilidadeISS indicadorExigibilidadeISS,
+
+            String codigoServico,
+
+            String codigoMunicipioIncidenciaImposto,
+
+            String codigoPais,
+
+            String numeroProcesso,
+
+            NFNotaInfoItemIndicadorIncentivoFiscal indicadorIncentivoFiscal
+
+    ){}
+
+    public record NFNotaInfoItemIndicadorExigibilidadeISS(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemIndicadorIncentivoFiscal(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemImpostoPIS(
+            NFNotaInfoItemImpostoPISAliquota aliquota,
+
+            NFNotaInfoItemImpostoPISQuantidade quantidade,
+
+            NFNotaInfoItemImpostoPISNaoTributado naoTributado,
+
+            NFNotaInfoItemImpostoPISOutrasOperacoes outrasOperacoes
+    ){}
+
+    public record NFNotaInfoItemImpostoPISAliquota(
+            NFNotaInfoSituacaoTributariaPIS situacaoTributaria,
+
+            String valorBaseCalculo,
+
+            String percentualAliquota,
+
+            String valorTributo
+    ){}
+
+    public record NFNotaInfoSituacaoTributariaPIS(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemImpostoPISQuantidade(
+            NFNotaInfoSituacaoTributariaPIS situacaoTributaria,
+
+            String quantidadeVendida,
+
+            String valorAliquota,
+
+            String valorTributo
+    ){}
+    public record NFNotaInfoItemImpostoPISNaoTributado(
+            NFNotaInfoSituacaoTributariaPIS situacaoTributaria,
+
+            String quantidadeVendida,
+
+            String valorAliquota,
+
+            String valorTributo
+    ){}
+
+    public record NFNotaInfoItemImpostoPISOutrasOperacoes(
+            NFNotaInfoSituacaoTributariaPIS situacaoTributaria,
+
+            String valorBaseCalculo,
+
+            String percentualAliquota,
+
+            String quantidadeVendida,
+
+            String valorAliquota,
+
+            String valorTributo
+    ){}
+
+    public record NFNotaInfoItemImpostoPISST(
+            String valorBaseCalculo,
+
+            String percentualAliquota,
+
+            String quantidadeVendida,
+
+            String valorAliquota,
+
+            String valorTributo,
+
+            NFIndicadorSomaPISST indicadorSomaPISST
+    ){}
+
+    public record NFIndicadorSomaPISST(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemImpostoCOFINS(
+            NFNotaInfoItemImpostoCOFINSAliquota aliquota,
+
+            NFNotaInfoItemImpostoCOFINSQuantidade quantidade,
+
+            NFNotaInfoItemImpostoCOFINSNaoTributavel naoTributavel,
+
+            NFNotaInfoItemImpostoCOFINSOutrasOperacoes outrasOperacoes
+    ){}
+
+    public record NFNotaInfoItemImpostoCOFINSAliquota(
+            NFNotaInfoSituacaoTributariaCOFINS situacaoTributaria,
+
+            String valorBaseCalculo,
+
+            String percentualAliquota,
+
+            String valor
+    ){}
+
+    public record NFNotaInfoSituacaoTributariaCOFINS(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemImpostoCOFINSQuantidade(
+            NFNotaInfoSituacaoTributariaCOFINS situacaoTributaria,
+
+            String quantidadeVendida,
+
+            String valorAliquota,
+
+            String valorTributo
+    ){}
+
+    public record NFNotaInfoItemImpostoCOFINSNaoTributavel(
+            NFNotaInfoSituacaoTributariaCOFINS situacaoTributaria
+    ){}
+
+    public record NFNotaInfoItemImpostoCOFINSOutrasOperacoes(
+            NFNotaInfoSituacaoTributariaCOFINS situacaoTributaria,
+
+            String valorBaseCalculo,
+
+            String percentualCOFINS,
+
+            String quantidadeVendida,
+
+            String valorAliquota,
+
+            String valorCOFINS
+    ){}
+
+    public record NFNotaInfoItemImpostoCOFINSST(
+            String valorBaseCalculo,
+
+            String percentualAliquota,
+
+            String quantidadeVendida,
+
+            String valorAliquotaCOFINS,
+
+            String valorCOFINS,
+
+            NFIndicadorSomaCofinsST indicadorSomaCOFINSST
+    ){}
+
+    public record NFIndicadorSomaCofinsST(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemImpostoICMSUFDestino(
+            String valorBaseCalculoDestino,
+
+            String valorBCFundoCombatePobrezaDestino,
+
+            String percentualRelativoFundoCombatePobrezaDestino,
+
+            String percentualAliquotaInternaDestino,
+
+            String percentualInterestadual,
+
+            String percentualProvisorioPartilha,
+
+            String valorRelativoFundoCombatePobrezaDestino,
+
+            String valorICMSInterestadualDestino,
+
+            String valorICMSInterestadualRemetente
+    ){}
+
+    public record NFNotaInfoItemImpostoIS(
+            NFNotaInfoImpostoTributacaoIS cstIS,
+
+            String cClassTribIS,
+
+
+            String vBCIS,
+
+            String pIS,
+
+            String pISEspec,
+
+            String uTrib,
+
+            String qTrib,
+
+            String vIS
+    ){}
+
+    public record NFNotaInfoImpostoTributacaoIS(
+            String codigo,
+            String descricao
+    ){}
+
+    public record NFNotaInfoItemImpostoIBSCBS(
+            NFNotaInfoImpostoTributacaoIBSCBS cst,
+
+            String cClassTrib,
+
+            String indicadorNaturezaOperacaoDoacao,
+
+            NFNotaInfoItemImpostoIBSCBSTIBS gIBSCBS,
+
+            NFNotaInfoItemImpostoIBSCBSMonofasia gIBSCBSMono,
+
+            NFNotaInfoItemImpostoIBSCBSTransfCred gTransfCred,
+
+            NFNotaInfoItemImpostoIBSCBSCredPresIBSZFM gCredPresIBSZFM,
+
+            NFNotaInfoIBSCBSGrupoEstornoCredito grupoEstornoCredito,
+
+            NFNotaInfoItemImpostoIBSCBSGCredPresOper grupoCreditoPresumidoOperacao,
+
+            GrupoAjusteCompetencia grupoAjusteCompetencia
+    ){
+        public record GrupoAjusteCompetencia(
+                YearMonth dataCompetenciaApuracao,
+                String valorIBS,
+                String valorCBS
+        ){}
+    }
+
+    public record NFNotaInfoImpostoTributacaoIBSCBS(
+            String codigo,
+            String descricao,
+            Integer indGIBSCBS,
+            Integer indGIBSCBSMono,
+            Integer indGRed,
+            Integer indGDif,
+            Integer indGTransfCred,
+            boolean indNFe,
+            boolean indNFCe,
+            boolean indCTe,
+            boolean indCteOS,
+            boolean indBPe,
+            boolean indBPeTM,
+            boolean indNF3e,
+            boolean indNFCom,
+            boolean indNFSe
+    ){}
+
+    public record NFNotaInfoItemImpostoIBSCBSTIBS(
+            String vBC,
+
+            GIBSUF gIBSUF,
+
+            GIBSMun gIBSMun,
+
+            String vIBS,
+
+            GCBS gCBS,
+
+            GTribRegular gTribRegular,
+
+            GTribCompraGov gTribCompraGov
+
+    ){
+        public record GIBSUF(
+                String pIBSUF,
+
+                GDif gDif,
+
+                GDevTrib gDevTrib,
+
+                GRed gRed,
+
+                String vIBSUF
+        ){}
+        public record GDif(
+                String pDif,
+                String vDif
+        ){}
+        public record GDevTrib(
+                String vDevTrib // UB25 // UB44
+        ){}
+        public record GRed(
+                String pRedAliq, // UB27 // UB46
+                String pAliqEfet
+        ){}
+        public record GIBSMun(
+                String pIBSMun,
+                GDif gDif,
+                GDevTrib gDevTrib,
+                GRed gRed,
+                String vIBSMun
+        ){}
+        public record GCBS(
+                String pCBS,
+                GDif gDif,
+                GDevTrib gDevTrib,
+                GRed gRed,
+                String vCBS
+        ){}
+        public record GTribRegular(
+                NFNotaInfoImpostoTributacaoIBSCBS cstReg,
+                String cClassTribReg,
+                String pAliqEfetRegIBSUF,
+                String vTribRegIBSUF,
+                String pAliqEfetRegIBSMun,
+                String vTribRegIBSMun,
+                String pAliqEfetRegCBS,
+                String vTribRegCBS
+        ){}
+        public record GTribCompraGov(
+                String pAliqIBSUF,
+                String vTribIBSUF,
+                String pAliqIBSMun,
+                String vTribIBSMun,
+                String pAliqCBS,
+                String vTribCBS
+        ){}
+    }
+    public record NFNotaInfoItemImpostoIBSCBSMonofasia(
+            NFNotaInfoItemImpostoIBSCBSMonofasicaGMonoPadrao gMonoPadrao,
+
+            NFNotaInfoItemImpostoIBSCBSMonofasicaGMonoReten gMonoReten,
+
+            NFNotaInfoItemImpostoIBSCBSMonofasicaGMonoRet gMonoRet,
+
+            NFNotaInfoItemImpostoIBSCBSMonofasicaGMonoDif gMonoDif,
+
+            String vTotIBSMonoItem,
+
+            String vTotCBSMonoItem
+    ){
+        public record NFNotaInfoItemImpostoIBSCBSMonofasicaGMonoPadrao(
+                String qBCMono,
+                String adRemIBS,
+                String adRemCBS,
+                String vIBSMono,
+                String vCBSMono
+        ){}
+        public record NFNotaInfoItemImpostoIBSCBSMonofasicaGMonoReten(
+                String qBCMonoReten,
+                String adRemIBSReten,
+                String vIBSMonoReten,
+                String adRemCBSReten,
+                String vCBSMonoReten
+        ){}
+        public record NFNotaInfoItemImpostoIBSCBSMonofasicaGMonoRet(
+                String qBCMonoRet,
+                String adRemIBSRet,
+                String vIBSMonoRet,
+                String adRemCBSRet,
+                String vCBSMonoRet
+        ){}
+        public record NFNotaInfoItemImpostoIBSCBSMonofasicaGMonoDif(
+                String pDifIBS,
+                String vIBSMonoDif,
+                String pDifCBS,
+                String vCBSMonoDif
+        ){}
+    }
+    public record NFNotaInfoItemImpostoIBSCBSTransfCred(
+            String vIBS,
+            String vCBS
+    ){}
+
+    public record NFNotaInfoItemImpostoIBSCBSCredPresIBSZFM(
+            LocalDate anoMesReferenciaApuracao,
+            String tpCredPresIBSZFM,
+            String vCredPresIBSZFM
+    ){}
+
+    public record NFNotaInfoIBSCBSGrupoEstornoCredito(
+            String valorIbsEstornado,
+            String valorCbsEstornado
+    ){}
+    public record NFNotaInfoItemImpostoIBSCBSGCredPresOper(
+            String valorBaseCalculoCreditoPresumido,
+            String classificacaoCreditoPresumido,
+            GCredPres grupoIBSCreditoPresumido,
+            GCredPres grupoCBSCreditoPresumido
+    ){
+        public record GCredPres(
+                String pCredPres,
+                String vCredPres,
+                String vCredPresCondSus
+        ){}
+    }
+
 
 }
