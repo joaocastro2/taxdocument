@@ -89,21 +89,21 @@ public record ProductRequestDto(
 
             Icms10RequestDto icms10,
 
-            NFNotaInfoItemImpostoICMS15 icms15,
+            Icms15RequestDto icms15,
 
-            NFNotaInfoItemImpostoICMS20 icms20,
+            Icms20RequestDto icms20,
 
-            NFNotaInfoItemImpostoICMS30 icms30,
+            Icms30RequestDto icms30,
 
-            NFNotaInfoItemImpostoICMS40 icms40,
+            Icms40RequestDto icms40,
 
-            NFNotaInfoItemImpostoICMS51 icms51,
+            Icms51RequestDto icms51,
 
-            NFNotaInfoItemImpostoICMS53 icms53,
+            Icms53RequestDto icms53,
 
-            NFNotaInfoItemImpostoICMS60 icms60,
+            Icms60RequestDto icms60,
 
-            NFNotaInfoItemImpostoICMS61 icms61,
+            Icms61RequestDto icms61,
 
             NFNotaInfoItemImpostoICMS70 icms70,
 
@@ -127,223 +127,6 @@ public record ProductRequestDto(
 
     ){}
 
-
-
-    public record NFNotaInfoItemImpostoICMS15(
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            String quantidadeBaseCalculo,
-
-            String percentualAliquota,
-
-            String valorTributo,
-
-            String quantidadeBaseCalculoTributadaSujeitaRetencao,
-
-            String percentualAliquotaRetencao,
-
-            String valorTributoRetencao,
-
-            String percentualReducaoAliquota,
-
-            NFNotaMotivoReducaoADREM motivoReducao
-
-    ){}
-
-    public record NFNotaMotivoReducaoADREM(
-
-            String codigo,
-            String descricao
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMS20(
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            IcmsModalityRequestDto modalidadeBCICMS,
-
-            String percentualReducaoBC,
-
-            String valorBCICMS,
-
-            String percentualAliquota,
-
-            String valorTributo,
-
-            String valorBCFundoCombatePobreza,
-
-            String percentualFundoCombatePobreza,
-
-            String valorFundoCombatePobreza,
-
-            String valorICMSDesoneracao,
-
-            IcmsExcemptionReasonDto desoneracao,
-
-            NFTipoDeducaoIcms indicaDeduzDesoneracao
-
-    ){}
-
-    public record NFTipoDeducaoIcms(
-
-            String codigo,
-            String descricao
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMS30(
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            IcmsHasModalityBC modalidadeBCICMSST,
-
-            String percentualMargemValorAdicionadoICMSST,
-
-            String percentualReducaoBCICMSST,
-
-            String valorBCICMSST,
-
-            String percentualAliquotaImpostoICMSST,
-
-            String valorImpostoICMSST,
-
-            String valorBCFundoCombatePobrezaST,
-
-            String percentualFundoCombatePobrezaST,
-
-            String valorFundoCombatePobrezaST,
-
-            String valorICMSDesoneracao,
-
-            IcmsExcemptionReasonDto desoneracao,
-
-            NFTipoDeducaoIcms indicaDeduzDesoneracao
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMS40(
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            String valorICMSDesoneracao,
-
-            IcmsExcemptionReasonDto motivoDesoneracaoICMS,
-
-            NFTipoDeducaoIcms indicaDeduzDesoneracao
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMS51(
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            IcmsModalityRequestDto modalidadeBCICMS,
-
-            String percentualReducaoBC,
-
-            String codigoBeneficioFiscalRBC,
-
-            String valorBCICMS,
-
-            String percentualICMS,
-
-            String valorICMSOperacao,
-
-            String percentualDiferimento,
-
-            String valorICMSDiferimento,
-
-            String valorICMS,
-
-            String valorBCFundoCombatePobreza,
-
-            String percentualFundoCombatePobreza,
-
-            String valorFundoCombatePobreza,
-
-            String percentualDiferimentoFundoCombatePobreza,
-
-            String valorDiferimentoFundoCombatePobreza,
-
-            String valorEfetivoFundoCombatePobreza
-
-    ){}
-
-
-    public record NFNotaInfoItemImpostoICMS53(
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            String quantidadeBaseCalculo,
-
-            String percentualAliquota,
-
-            String valorOperacao,
-
-            String percentualDiferimento,
-
-            String valorTributoDiferido,
-
-            String valorTributo
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMS60(
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            String valorBCICMSSTRetido,
-
-            String percentualAliquotaICMSSTConsumidorFinal,
-
-            String valorICMSSubstituto,
-
-            String valorICMSSTRetido,
-
-            String valorBCFundoCombatePobrezaRetidoST,
-
-            String percentualFundoCombatePobrezaRetidoST,
-
-            String valorFundoCombatePobrezaRetidoST,
-
-            String percentualReducaoBCEfetiva,
-
-            String valorBCEfetiva,
-
-            String percentualAliquotaICMSEfetiva,
-
-            String valorICMSEfetivo
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMS61(
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            String quantidadeBaseCalculo,
-
-            String percentualAliquota,
-
-            String valorTributo
-
-    ){}
 
     public record NFNotaInfoItemImpostoICMS70(
 
@@ -393,7 +176,7 @@ public record ProductRequestDto(
 
             IcmsExcemptionReasonDto motivoDesoneracaoICMSST,
 
-            NFTipoDeducaoIcms indicaDeduzDesoneracao
+            IcmsDeductionTipe indicaDeduzDesoneracao
 
     ){}
 
@@ -445,7 +228,7 @@ public record ProductRequestDto(
 
     IcmsExcemptionReasonDto motivoDesoneracaoICMSST,
 
-    NFTipoDeducaoIcms indicaDeduzDesoneracao
+    IcmsDeductionTipe indicaDeduzDesoneracao
 
     ){}
 
