@@ -61,7 +61,6 @@ public record ProductRequestDto(
 
             NFNotaInfoItemImpostoImportacao impostoImportacao,
 
-
             NFNotaInfoItemImpostoISSQN issqn,
 
             NFNotaInfoItemImpostoPIS pis,
@@ -105,7 +104,7 @@ public record ProductRequestDto(
 
             Icms61RequestDto icms61,
 
-            NFNotaInfoItemImpostoICMS70 icms70,
+            Icms70RequestDto icms70,
 
             NFNotaInfoItemImpostoICMS90 icms90,
 
@@ -124,59 +123,6 @@ public record ProductRequestDto(
             NFNotaInfoItemImpostoICMSSN500 icmssn500,
 
             NFNotaInfoItemImpostoICMSSN900 icmssn900
-
-    ){}
-
-
-    public record NFNotaInfoItemImpostoICMS70(
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            IcmsModalityRequestDto modalidadeBCICMS,
-
-            String percentualReducaoBC,
-
-            String valorBC,
-
-            String percentualAliquota,
-
-            String valorTributo,
-
-            String valorBCFundoCombatePobreza,
-
-            String percentualFundoCombatePobreza,
-
-            String valorFundoCombatePobreza,
-
-            IcmsHasModalityBC modalidadeBCICMSST,
-
-            String percentualMargemValorAdicionadoICMSST,
-
-            String percentualReducaoBCICMSST,
-
-            String valorBCST,
-
-            String percentualAliquotaImpostoICMSST,
-
-            String valorICMSST,
-
-            String valorBCFundoCombatePobrezaST,
-
-            String percentualFundoCombatePobrezaST,
-
-            String valorFundoCombatePobrezaST,
-
-            String valorICMSDesoneracao,
-
-            IcmsExcemptionReasonDto desoneracao,
-
-            String valorICMSSTDesonerado,
-
-            IcmsExcemptionReasonDto motivoDesoneracaoICMSST,
-
-            IcmsDeductionTipe indicaDeduzDesoneracao
 
     ){}
 
