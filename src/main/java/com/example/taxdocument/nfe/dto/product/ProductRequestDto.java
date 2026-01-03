@@ -5,6 +5,7 @@ import com.example.taxdocument.nfe.dto.origin.NFOriginRequestDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -106,13 +107,13 @@ public record ProductRequestDto(
 
             Icms70RequestDto icms70,
 
-            NFNotaInfoItemImpostoICMS90 icms90,
+            Icms90RequestDto icms90,
 
-            NFNotaInfoItemImpostoICMSPartilhado icmsPartilhado,
+            IcmsSharedRequestDto icmsPartilhado,
 
-            NFNotaInfoItemImpostoICMSST icmsst,
+            TaxIcmsSTRequestDto icmsst,
 
-            NFNotaInfoItemImpostoICMSSN101 icmssn101,
+            Icms101RequestDto icmssn101,
 
             NFNotaInfoItemImpostoICMSSN102 icmssn102,
 
@@ -126,150 +127,17 @@ public record ProductRequestDto(
 
     ){}
 
-    public record NFNotaInfoItemImpostoICMS90(
-
-    NFOriginRequestDto origem,
-
-    IcmsTaxRequestDto situacaoTributaria,
-
-    IcmsModalityRequestDto modalidadeBCICMS,
-
-    String valorBC,
-
-    String percentualReducaoBC,
-
-    String percentualAliquota,
-
-    String valorTributo,
-
-    String valorBCFundoCombatePobreza,
-
-    String percentualFundoCombatePobreza,
-
-    String valorFundoCombatePobreza,
-
-    IcmsHasModalityBC modalidadeBCICMSST,
-
-    String percentualMargemValorAdicionadoICMSST,
-
-    String percentualReducaoBCICMSST,
-
-    String valorBCST,
-
-    String percentualAliquotaImpostoICMSST,
-
-    String valorICMSST,
-
-    String valorBCFundoCombatePobrezaST,
-
-    String percentualFundoCombatePobrezaST,
-
-    String valorFundoCombatePobrezaST,
-
-    String valorICMSDesoneracao,
-
-    IcmsExcemptionReasonDto desoneracao,
-
-    String valorICMSSTDesonerado,
-
-    IcmsExcemptionReasonDto motivoDesoneracaoICMSST,
-
-    IcmsDeductionTipe indicaDeduzDesoneracao
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMSPartilhado (
-
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            IcmsModalityRequestDto modalidadeBCICMS,
-
-            String valorBCICMS,
-
-            String percentualReducaoBC,
-
-            String percentualAliquotaImposto,
-
-            String valorICMS,
-
-            IcmsHasModalityBC modalidadeBCICMSST,
-
-            String percentualMargemValorAdicionadoICMSST,
-
-            String percentualReducaoBCICMSST,
-
-            String valorBCICMSST,
-
-            String percentualAliquotaImpostoICMSST,
-
-            String valorICMSST,
-
-            String percentualBCOperacaoPropria,
-
-            String ufICMSST
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMSST(
-            NFOriginRequestDto origem,
-
-            IcmsTaxRequestDto situacaoTributaria,
-
-            String valorBCICMSSTRetidoUFRemetente,
-
-            String aliqSuportadaConsFinal,
-
-            String valorICMSSubstituto,
-
-            String valorICMSSTRetidoUFRemetente,
-
-            String valorBCFundoCombatePobrezaRetidoST,
-
-            String percentualFundoCombatePobrezaRetidoST,
-
-            String valorFundoCombatePobrezaRetidoST,
-
-            String valorBCICMSSTUFDestino,
-
-            String valorICMSSTUFDestino,
-
-            String percentualReducaoBCEfetiva,
-
-            String valorBCEfetiva,
-
-            String percentualAliquotaICMSEfetiva,
-
-            String valorICMSEfetivo
-    ){}
-
-    public record NFNotaInfoItemImpostoICMSSN101(
-            NFOriginRequestDto origem,
-
-            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
-
-            String percentualAliquotaAplicavelCalculoCreditoSN,
-
-            String valorCreditoICMSSN
-    ){}
-
-    public record NFNotaSituacaoOperacionalSimplesNacional(
-            String codigo,
-            String descricao
-    ){}
-
     public record NFNotaInfoItemImpostoICMSSN102(
             NFOriginRequestDto origem,
 
-            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN
+            SimpleNationalOpSituation situacaoOperacaoSN
     ){}
 
     public record NFNotaInfoItemImpostoICMSSN201(
 
             NFOriginRequestDto origem,
 
-            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+            SimpleNationalOpSituation situacaoOperacaoSN,
 
             IcmsHasModalityBC modalidadeBCICMSST,
 
@@ -297,7 +165,7 @@ public record ProductRequestDto(
     public record NFNotaInfoItemImpostoICMSSN202(
             NFOriginRequestDto origem,
 
-            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+            SimpleNationalOpSituation situacaoOperacaoSN,
 
             IcmsHasModalityBC modalidadeBCICMSST,
 
@@ -321,7 +189,7 @@ public record ProductRequestDto(
     public record NFNotaInfoItemImpostoICMSSN500(
             NFOriginRequestDto origem,
 
-            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+            SimpleNationalOpSituation situacaoOperacaoSN,
 
             String valorBCICMSSTRetido,
 
@@ -350,7 +218,7 @@ public record ProductRequestDto(
 
             NFOriginRequestDto origem,
 
-            NFNotaSituacaoOperacionalSimplesNacional situacaoOperacaoSN,
+            SimpleNationalOpSituation situacaoOperacaoSN,
 
             IcmsModalityRequestDto modalidadeBCICMS,
 

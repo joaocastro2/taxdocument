@@ -5,9 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import javax.crypto.Mac;
-
-public record Icms70RequestDto (
+public record Icms90RequestDto(
         @Valid
         @NotNull(message = "NF origin Dto cannot be null.")
         NFOriginRequestDto nfOriginDto,
@@ -20,14 +18,11 @@ public record Icms70RequestDto (
         @NotNull(message = "Icms modality calculation base cannot be null.")
         IcmsModalityRequestDto icmsModalityBCDto,
 
-        @NotBlank(message = "Reduction percentage calculation base is required.")
-        String reductPercentageBCDto,
-
-        @NotBlank(message = "Calculation base value is required.")
+        @NotBlank(message = "Value BC is required.")
         String valueBCDto,
 
-        @NotBlank(message = "Tax percentage Dto is required.")
-        String taxPercentageDto,
+        @NotBlank(message = "Reduction percentage is required.")
+        String percentageReductBCDto,
 
         @NotBlank(message = "Tax value is required.")
         String taxValueDto,
@@ -87,5 +82,5 @@ public record Icms70RequestDto (
         @Valid
         @NotNull(message = "Indicates deducts exemption is required.")
         IcmsDeductionTipe indicatesDeductsExemptionDto
-){
+) {
 }
