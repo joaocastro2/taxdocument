@@ -1,11 +1,9 @@
 package com.example.taxdocument.nfe.dto.product;
 
 import com.example.taxdocument.nfe.dto.icms.*;
-import com.example.taxdocument.nfe.dto.origin.NFOriginRequestDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.boot.autoconfigure.task.TaskExecutionProperties;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -83,7 +81,7 @@ public record ProductRequestDto(
 
     public record NFNotaInfoItemImpostoICMS(
 
-            Icms00RequestDto icms00,
+            Icms00RequestDtoj icms00,
 
             Icms02RequestDto icms02,
 
@@ -115,142 +113,15 @@ public record ProductRequestDto(
 
             Icms101RequestDto icmssn101,
 
-            NFNotaInfoItemImpostoICMSSN102 icmssn102,
+            Icms102RequestDto icmssn102,
 
-            NFNotaInfoItemImpostoICMSSN201 icmssn201,
+            Icms201RequestDto icmssn201,
 
-            NFNotaInfoItemImpostoICMSSN202 icmssn202,
+            Icms202RequestDto icmssn202,
 
-            NFNotaInfoItemImpostoICMSSN500 icmssn500,
+            Icms500RequestDto icmssn500,
 
-            NFNotaInfoItemImpostoICMSSN900 icmssn900
-
-    ){}
-
-    public record NFNotaInfoItemImpostoICMSSN102(
-            NFOriginRequestDto origem,
-
-            SimpleNationalOpSituation situacaoOperacaoSN
-    ){}
-
-    public record NFNotaInfoItemImpostoICMSSN201(
-
-            NFOriginRequestDto origem,
-
-            SimpleNationalOpSituation situacaoOperacaoSN,
-
-            IcmsHasModalityBC modalidadeBCICMSST,
-
-            String percentualMargemValorAdicionadoICMSST,
-
-            String percentualReducaoBCICMSST,
-
-            String valorBCICMSST,
-
-            String percentualAliquotaImpostoICMSST,
-
-            String valorICMSST,
-
-            String valorBCFundoCombatePobrezaST,
-
-            String percentualFundoCombatePobrezaST,
-
-            String valorFundoCombatePobrezaST,
-
-            String percentualAliquotaAplicavelCalculoCreditoSN,
-
-            String valorCreditoICMSSN
-    ){}
-
-    public record NFNotaInfoItemImpostoICMSSN202(
-            NFOriginRequestDto origem,
-
-            SimpleNationalOpSituation situacaoOperacaoSN,
-
-            IcmsHasModalityBC modalidadeBCICMSST,
-
-            String percentualMargemValorAdicionadoICMSST,
-
-            String percentualReducaoBCICMSST,
-
-            String valorBCICMSST,
-
-            String percentualAliquotaImpostoICMSST,
-
-            String valorICMSST,
-
-            String valorBCFundoCombatePobrezaST,
-
-            String percentualFundoCombatePobrezaST,
-
-            String valorFundoCombatePobrezaST
-    ){}
-
-    public record NFNotaInfoItemImpostoICMSSN500(
-            NFOriginRequestDto origem,
-
-            SimpleNationalOpSituation situacaoOperacaoSN,
-
-            String valorBCICMSSTRetido,
-
-            String percentualICMSSTRetido,
-
-            String valorICMSSubstituto,
-
-            String valorICMSSTRetido,
-
-            String valorBCFundoCombatePobrezaRetidoST,
-
-            String percentualFundoCombatePobrezaRetidoST,
-
-            String valorFundoCombatePobrezaRetidoST,
-
-            String percentualReducaoBCEfetiva,
-
-            String valorBCEfetiva,
-
-            String percentualAliquotaICMSEfetiva,
-
-            String valorICMSEfetivo
-    ){}
-
-    public record NFNotaInfoItemImpostoICMSSN900(
-
-            NFOriginRequestDto origem,
-
-            SimpleNationalOpSituation situacaoOperacaoSN,
-
-            IcmsModalityRequestDto modalidadeBCICMS,
-
-            String valorBCICMS,
-
-            String percentualReducaoBC,
-
-            String percentualAliquotaImposto,
-
-            String valorICMS,
-
-            IcmsHasModalityBC modalidadeBCICMSST,
-
-            String percentualMargemValorAdicionadoICMSST,
-
-            String percentualReducaoBCICMSST,
-
-            String valorBCICMSST,
-
-            String percentualAliquotaImpostoICMSST,
-
-            String valorICMSST,
-
-            String valorBCFundoCombatePobrezaST,
-
-            String percentualFundoCombatePobrezaST,
-
-            String valorFundoCombatePobrezaST,
-
-            String percentualAliquotaAplicavelCalculoCreditoSN,
-
-            String valorCreditoICMSSN
+            Icms900RequestDto icmssn900
 
     ){}
 

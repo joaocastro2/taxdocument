@@ -1,6 +1,6 @@
 package com.example.taxdocument.nfe.dto.icms;
 
-import com.example.taxdocument.nfe.dto.origin.NFOriginRequestDto;
+import com.example.taxdocument.nfe.dto.origin.NFOriginDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,11 +8,11 @@ import jakarta.validation.constraints.NotNull;
 public record TaxIcmsSTRequestDto(
         @Valid
         @NotNull(message = "NF origin Dto cannot be null.")
-        NFOriginRequestDto nfOriginDto,
+        NFOriginDto nfOriginDto,
 
         @Valid
         @NotNull(message = "Icms Tax cannot be null.")
-        IcmsTaxRequestDto icmsTaxDto,
+        IcmsTaxDto icmsTaxDto,
 
         @NotBlank(message = "ValueBCICMSSTRetainedUFSender is required.")
         String ValueBCICMSSTRetainedUFSender,
