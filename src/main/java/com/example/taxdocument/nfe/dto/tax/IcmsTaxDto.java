@@ -1,6 +1,6 @@
-package com.example.taxdocument.nfe.dto.icms;
+package com.example.taxdocument.nfe.dto.tax;
 
-import com.example.taxdocument.nfe.dto.origin.NFOriginDto;
+import com.example.taxdocument.nfe.dto.icms.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -51,8 +51,13 @@ public record IcmsTaxDto(
                 @NotBlank String taxValue
         ) {}
 
+        public record OriginTaxDto(
+                String codigo,
+                String descricao
+        ){}
+
         public record Icms00Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid @NotNull IcmsModalityDto icmsModality,
                 @NotBlank String baseValue,
@@ -62,7 +67,7 @@ public record IcmsTaxDto(
         ){}
 
         public record Icms02Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @NotBlank String baseValue,
                 @NotBlank String percentageRate,
@@ -70,7 +75,7 @@ public record IcmsTaxDto(
         ) {}
 
         public record Icms10Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid @NotNull IcmsModalityDto icmsModality,
                 @NotBlank String baseValue,
@@ -81,7 +86,7 @@ public record IcmsTaxDto(
         ) {}
 
         public record Icms15Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @NotBlank String adRemBaseQuantity,
                 @NotBlank String adRemTaxRate,
@@ -94,7 +99,7 @@ public record IcmsTaxDto(
         ){}
 
         public record Icms20Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @Valid @NotNull IcmsModalityDto modalidadeBCICMS,
                 @NotBlank String situation,
                 @Valid @NotNull ReductionDto reduction,
@@ -105,7 +110,7 @@ public record IcmsTaxDto(
         ){}
 
         public record Icms30Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid @NotNull SubstitutionTaxDto substitutionTax,
                 @NotBlank String exemptionValue,
@@ -114,14 +119,14 @@ public record IcmsTaxDto(
         ){}
 
         public record Icms40Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 String exemptionValue,
                 @Valid IcmsExcemptionReasonDto exemptionReason
         ){}
 
         public record Icms51Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid IcmsModalityDto modality,
                 @Valid ReductionDto reduction,
@@ -132,7 +137,7 @@ public record IcmsTaxDto(
         ){}
 
         public record Icms53Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @NotBlank String adRemBaseQuantity,
                 @NotBlank String adRemTaxRate,
@@ -142,16 +147,24 @@ public record IcmsTaxDto(
                 String valueTotal
         ){}
 
+        public record IcmsEffectiveDto(
+                String percentageReductionBCEffective,
+                String valueBCEffective,
+                String percentageAliquotICMSEffective,
+                String valueICMSEffective
+        ) {}
+
         public record Icms60Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 String baseValueSTRetained,
                 String taxValueSTRetained,
-                @Valid PovertyFundDto povertyFundRetained
+                @Valid PovertyFundDto povertyFundRetained,
+                @Valid IcmsEffectiveDto effective
         ){}
 
         public record Icms61Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @NotBlank String whBaseQuantity,
                 @NotBlank String whTaxRate,
@@ -159,7 +172,7 @@ public record IcmsTaxDto(
         ){}
 
         public record Icms70Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid @NotNull IcmsModalityDto modality,
                 @Valid @NotNull ReductionDto reduction,
@@ -168,7 +181,7 @@ public record IcmsTaxDto(
         ){}
 
         public record Icms90Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid IcmsModalityDto modality,
                 @Valid ReductionDto reduction,
@@ -179,19 +192,19 @@ public record IcmsTaxDto(
         ){}
 
         public record IcmsSn101Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @NotBlank String creditTaxRate, // pCredSN
                 @NotBlank String creditValue    // vCredICMSSN
         ) {}
 
         public record IcmsSn102Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation
         ) {}
 
         public record IcmsSn201Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid @NotNull SubstitutionTaxDto substitutionTax,
                 @NotBlank String creditTaxRate,
@@ -199,21 +212,22 @@ public record IcmsTaxDto(
         ) {}
 
         public record IcmsSn202Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid @NotNull SubstitutionTaxDto substitutionTax
         ) {}
 
         public record IcmsSn500Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 String baseValueSTRetained,
                 String taxValueSTRetained,
-                @Valid PovertyFundDto povertyFundRetained
+                @Valid PovertyFundDto povertyFundRetained,
+                @Valid IcmsEffectiveDto effective
         ) {}
 
         public record IcmsSn900Dto(
-                @Valid @NotNull NFOriginDto nfOrigin,
+                @Valid @NotNull OriginTaxDto nfOrigin,
                 @NotBlank String situation,
                 @Valid IcmsModalityDto modality,
                 @Valid ReductionDto reduction,

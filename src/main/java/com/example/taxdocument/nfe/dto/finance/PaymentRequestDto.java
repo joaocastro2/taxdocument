@@ -1,4 +1,4 @@
-package com.example.taxdocument.nfe.dto.payment;
+package com.example.taxdocument.nfe.dto.finance;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
