@@ -1,4 +1,4 @@
-package com.example.taxdocument.nfe.dto.info;
+package com.example.taxdocument.nfe.dto.issuer;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
