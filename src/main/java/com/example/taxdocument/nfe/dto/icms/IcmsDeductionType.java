@@ -2,7 +2,7 @@ package com.example.taxdocument.nfe.dto.icms;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record IcmsDeductionTipe(
+public record IcmsDeductionType(
         @NotBlank(message = "Icms deduction tipe dto is required.")
         String deductTipeCodeDto,
 
