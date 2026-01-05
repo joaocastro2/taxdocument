@@ -1,6 +1,6 @@
 package com.example.taxdocument.nfe.model;
 
-import com.fincatto.documentofiscal.nfe310.classes.nota.NFNotaInfoItemImposto;
+import com.fincatto.documentofiscal.nfe400.classes.nota.NFNotaInfoItemImposto;
 import lombok.*;
 
 import java.math.BigDecimal;
