@@ -63,7 +63,7 @@
         <dependency>
             <groupId>com.github.wmixvideo</groupId>
             <artifactId>nfe</artifactId>
-            <version>4.0.0</version>
+            <version>5.0.40</version>
         </dependency>
 
 	</dependencies>
