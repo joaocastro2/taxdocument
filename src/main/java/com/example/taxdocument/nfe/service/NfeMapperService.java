@@ -1,5 +1,6 @@
 package com.example.taxdocument.nfe.service;
 
+import com.example.taxdocument.nfe.dto.icms.NFReasonForReductionADREM;
 import com.example.taxdocument.nfe.dto.issuer.InfoRequestDto;
 import com.example.taxdocument.nfe.dto.issuer.IssuerRequestDto;
 import com.example.taxdocument.nfe.dto.product.ItemTaxDto;
@@ -9,9 +10,7 @@ import com.example.taxdocument.nfe.model.InfoNfeModel;
 import com.example.taxdocument.nfe.model.IssuerNfeModel;
 import com.example.taxdocument.nfe.model.ProductNfeModel;
 import com.fincatto.documentofiscal.DFUnidadeFederativa;
-import com.fincatto.documentofiscal.nfe400.classes.NFEndereco;
-import com.fincatto.documentofiscal.nfe400.classes.NFOrigem;
-import com.fincatto.documentofiscal.nfe400.classes.NFRegimeTributario;
+import com.fincatto.documentofiscal.nfe400.classes.*;
 import com.fincatto.documentofiscal.nfe400.classes.nota.*;
 import org.springframework.stereotype.Service;
 
@@ -59,8 +58,8 @@ public class NfeMapperService {
                 .inscricaoEstadualST(dto.issuerStateRegSTDto())
                 .inscricaoMunicipal(dto.municipalRegDto())
                 .cnae(dto.cnaeDto())
-                .regimeTributario(dto.taxRegimeDto() != null ?
-                        NFRegimeTributario.valueOfCodigo(dto.taxRegimeDto().codRegimeDto()) : null)
+                .regimeTributario(dto.taxRegimeDto()
+                        != null ? NFRegimeTributario.valueOfCodigo(dto.taxRegimeDto().codRegimeDto()) : null)
                 .endereco(mapEndereco(dto.adressDto()))
                 .build();
     }
@@ -107,8 +106,7 @@ public class NfeMapperService {
                 .valorTotalBruto(dto.totalGrossValue())
                 .valorDesconto(dto.discountValue())
                 .valorFrete(dto.freightValue())
-                .imposto
-                        (mapItemTax(dto.itemTax()))
+                .imposto(mapItemTax(dto.itemTax()))
                 .build();
     }
 
@@ -132,37 +130,92 @@ public class NfeMapperService {
         NFNotaInfoItemImpostoICMS icms = new NFNotaInfoItemImpostoICMS();
 
         if (dto.icms00() != null) {
-            var dto00 = dto.icms00();
-            // Garante que o objeto pai é da 400
-            com.fincatto.documentofiscal.nfe400.classes.nota.NFNotaInfoItemImpostoICMS00 icms00 =
-                    new com.fincatto.documentofiscal.nfe400.classes.nota.NFNotaInfoItemImpostoICMS00();
-
-            // 1. Origem
-            if (dto00.nfOrigin() != null) {
-                icms00.setOrigem(NFOrigem.valueOfCodigo(dto00.nfOrigin().codigo()));
-            }
-
-            // 2. Situação Tributária
-            icms00.setSituacaoTributaria(com.fincatto.documentofiscal.nfe400.classes.nota.NFICMSSituacaoTributaria.TRIBUTADA_INTEGRALMENTE);
-
-            // 3. Modalidade BC (Correção Definitiva)
-            if (dto00.icmsModality() != null && dto00.icmsModality().icmsModalityCodeDto() != null) {
-                String codigo = dto00.icmsModality().icmsModalityCodeDto();
-                // Forçamos o uso do Enum da versão 400
-                com.fincatto.documentofiscal.nfe400.classes.nota.NFICMSModalidadeDeterminacaoBC modalidade =
-                        com.fincatto.documentofiscal.nfe400.classes.nota.NFICMSModalidadeDeterminacaoBC.valueOfCodigo(codigo);
-
-                icms00.setModalidadeDeterminacaoBC(modalidade);
-            }
-
-            // 4. Valores
-            icms00.setValorBaseCalculo(new BigDecimal(dto00.baseValue()));
-            icms00.setPercentualAliquota(new BigDecimal(dto00.percentageRate()));
-            icms00.setValorTributo(new BigDecimal(dto00.taxValue()));
-
-            icms.setIcms00(icms00);
+            icms.setIcms00(mapIcms00(dto.icms00()));
+        } else if (dto.icms10() != null) {
+            icms.setIcms10(mapIcms10(dto.icms10()));
         }
 
         return icms;
+    }
+
+    private NFNotaInfoItemImpostoICMS00 mapIcms00(IcmsTaxDto.Icms00Dto dto) {
+        NFNotaInfoItemImpostoICMS00 nfeIcms00 = new NFNotaInfoItemImpostoICMS00();
+
+        nfeIcms00.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
+        nfeIcms00.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("00"));
+
+        if (dto.icmsModality() != null) {
+            nfeIcms00.setModalidadeBCICMS(NFNotaInfoItemModalidadeBCICMS.valueOfCodigo(dto.icmsModality().icmsModalityCodeDto()));
+        }
+
+        nfeIcms00.setValorBaseCalculo(new BigDecimal(dto.baseValue()));
+        nfeIcms00.setPercentualAliquota(new BigDecimal(dto.percentageRate()));
+        nfeIcms00.setValorTributo(new BigDecimal(dto.taxValue()));
+
+        return nfeIcms00;
+    }
+
+    private NFNotaInfoItemImpostoICMS10 mapIcms10(IcmsTaxDto.Icms10Dto dto) {
+        NFNotaInfoItemImpostoICMS10 nfeIcms10 = new NFNotaInfoItemImpostoICMS10();
+
+        nfeIcms10.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
+        nfeIcms10.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("10"));
+
+        if (dto.icmsModality() != null) {
+            nfeIcms10.setModalidadeBCICMS(NFNotaInfoItemModalidadeBCICMS.valueOfCodigo(dto.icmsModality().icmsModalityCodeDto()));
+        }
+        nfeIcms10.setValorBaseCalculo(new BigDecimal(dto.baseValue()));
+        nfeIcms10.setPercentualAliquota(new BigDecimal(dto.percentageRate()));
+        nfeIcms10.setValorTributo(new BigDecimal(dto.taxValue()));
+
+        var st = dto.substitutionTax();
+        if (st != null) {
+            nfeIcms10.setModalidadeBCICMSST(NFNotaInfoItemModalidadeBCICMSST.valueOfCodigo(String.valueOf(st.modality())));
+
+            if (st.mvaRate() != null && !st.mvaRate().isBlank()) {
+                nfeIcms10.setPercentualMargemValorAdicionadoICMSST(new BigDecimal(st.mvaRate()));
+            }
+
+            if (st.reductionRate() != null && !st.reductionRate().isBlank()) {
+                nfeIcms10.setPercentualReducaoBCICMSST(new BigDecimal(st.reductionRate()));
+            }
+
+            nfeIcms10.setValorBCICMSST(new BigDecimal(st.baseValue()));
+            nfeIcms10.setPercentualAliquotaImpostoICMSST(new BigDecimal(st.taxRate()));
+            nfeIcms10.setValorICMSST(new BigDecimal(st.taxValue()));
+        }
+
+        if (dto.povertyFund() != null) {
+            var fcp = dto.povertyFund();
+            nfeIcms10.setPercentualFundoCombatePobrezaST(new BigDecimal(fcp.taxRate()));
+            nfeIcms10.setValorFundoCombatePobrezaST(new BigDecimal(fcp.taxValue()));
+        }
+
+        return nfeIcms10;
+    }
+
+    private NFNotaInfoItemImpostoICMS15 mapIcms15(IcmsTaxDto.Icms15Dto dto) {
+        NFNotaInfoItemImpostoICMS15 nfeIcms15 = new NFNotaInfoItemImpostoICMS15();
+
+        nfeIcms15.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
+        nfeIcms15.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("15"));
+
+        nfeIcms15.setQuantidadeBaseCalculo(new BigDecimal(dto.adRemBaseQuantity()));
+        nfeIcms15.setPercentualAliquota(new BigDecimal(dto.adRemTaxRate()));
+        nfeIcms15.setValorTributo(new BigDecimal(dto.taxValue()));
+
+        nfeIcms15.setQuantidadeBaseCalculoTributadaSujeitaRetencao(new BigDecimal(dto.whBaseQuantity()));
+        nfeIcms15.setPercentualAliquotaRetencao(new BigDecimal(dto.whTaxRate()));
+        nfeIcms15.setValorTributoRetencao(new BigDecimal(dto.whTaxValue()));
+
+        if (dto.reductionPercentage() != null) {
+            nfeIcms15.setPercentualReducaoAliquota(new BigDecimal(dto.reductionPercentage()));
+        }
+
+        if (dto.reasonReduction() != null) {
+            nfeIcms15.setMotivoReducao(NFNotaMotivoReducaoADREM.valueOfCodigo(dto.reasonReduction().reasonFRcodeDto()));
+        }
+
+        return nfeIcms15;
     }
 }
