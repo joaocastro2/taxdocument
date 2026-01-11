@@ -5,6 +5,8 @@ import com.example.taxdocument.nfe.dto.issuer.IssuerRequestDto;
 import com.example.taxdocument.nfe.dto.product.ItemTaxDto;
 import com.example.taxdocument.nfe.dto.product.ProductNfeDto;
 import com.example.taxdocument.nfe.dto.tax.IcmsTaxDto;
+import com.example.taxdocument.nfe.mapper.icms.Icms20Mapper;
+import com.example.taxdocument.nfe.mapper.icms.Icms30Mapper;
 import com.example.taxdocument.nfe.model.InfoNfeModel;
 import com.example.taxdocument.nfe.model.IssuerNfeModel;
 import com.example.taxdocument.nfe.model.ProductNfeModel;
@@ -126,79 +128,10 @@ public class NfeMapperService {
     }
 
     private NFNotaInfoItemImpostoICMS mapIcms(IcmsTaxDto dto) {
-        NFNotaInfoItemImpostoICMS icms = new NFNotaInfoItemImpostoICMS();
+        NFNotaInfoItemImpostoICMS container = new NFNotaInfoItemImpostoICMS();
 
-        if (dto.icms00() != null) {
-            icms.setIcms00(mapIcms00(dto.icms00()));
-        } else if (dto.icms10() != null) {
-            icms.setIcms10(mapIcms10(dto.icms10()));
-        }
 
-        return icms;
+
+        return container;
     }
-
-    private NFNotaInfoItemImpostoICMS15 mapIcms15(IcmsTaxDto.Icms15Dto dto) {
-        NFNotaInfoItemImpostoICMS15 nfeIcms15 = new NFNotaInfoItemImpostoICMS15();
-
-        nfeIcms15.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
-        nfeIcms15.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("15"));
-
-        nfeIcms15.setQuantidadeBaseCalculo(new BigDecimal(dto.adRemBaseQuantity()));
-        nfeIcms15.setPercentualAliquota(new BigDecimal(dto.adRemTaxRate()));
-        nfeIcms15.setValorTributo(new BigDecimal(dto.taxValue()));
-
-        nfeIcms15.setQuantidadeBaseCalculoTributadaSujeitaRetencao(new BigDecimal(dto.whBaseQuantity()));
-        nfeIcms15.setPercentualAliquotaRetencao(new BigDecimal(dto.whTaxRate()));
-        nfeIcms15.setValorTributoRetencao(new BigDecimal(dto.whTaxValue()));
-
-        if (dto.reductionPercentage() != null) {
-            nfeIcms15.setPercentualReducaoAliquota(new BigDecimal(dto.reductionPercentage()));
-        }
-
-        if (dto.reasonReduction() != null) {
-            nfeIcms15.setMotivoReducao(NFNotaMotivoReducaoADREM.valueOfCodigo(dto.reasonReduction().reasonFRcodeDto()));
-        }
-
-        return nfeIcms15;
-    }
-
-    private NFNotaInfoItemImpostoICMS20 mapIcms20(IcmsTaxDto.Icms20Dto dto) {
-        NFNotaInfoItemImpostoICMS20 nfeIcms20 = new NFNotaInfoItemImpostoICMS20();
-
-        nfeIcms20.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
-        nfeIcms20.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("20"));
-
-        if (dto.modalidadeBCICMS() != null) {
-            nfeIcms20.setModalidadeBCICMS(NFNotaInfoItemModalidadeBCICMS.valueOfCodigo(dto.modalidadeBCICMS().icmsModalityCodeDto()));
-        }
-
-        nfeIcms20.setPercentualReducaoBC(new BigDecimal(dto.reduction().reductionPercentage()));
-
-        nfeIcms20.setValorBCICMS(new BigDecimal(dto.reduction().baseValue()));
-        nfeIcms20.setPercentualAliquota(new BigDecimal(dto.reduction().taxRate()));
-        nfeIcms20.setValorTributo(new BigDecimal(dto.reduction().taxValue()));
-
-        if (dto.povertyFund() != null) {
-            var fcp = dto.povertyFund();
-
-            nfeIcms20.setValorBCFundoCombatePobreza(new BigDecimal(fcp.baseValue()));
-            nfeIcms20.setPercentualFundoCombatePobreza(new BigDecimal(fcp.taxRate()));
-            nfeIcms20.setValorFundoCombatePobreza(new BigDecimal(fcp.taxValue()));
-        }
-
-        if (dto.excemptionValue() != null && !dto.excemptionValue().isBlank()) {
-            nfeIcms20.setValorICMSDesoneracao(new BigDecimal(dto.excemptionValue()));
-
-            if (dto.extemptionReason() != null) {
-                nfeIcms20.setDesoneracao(NFNotaMotivoDesoneracaoICMS.valueOfCodigo(dto.extemptionReason().codigo()));
-            }
-
-            if (dto.deductionTipe() != null) {
-                nfeIcms20.setIndicaDeduzDesoneracao(NFTipoDeducaoIcms.valueOfCodigo(dto.deductionTipe().deductTipeCodeDto()));
-            }
-        }
-
-        return nfeIcms20;
-    }
-
 }
