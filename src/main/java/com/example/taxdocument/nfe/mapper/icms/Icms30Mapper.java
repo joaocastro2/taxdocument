@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 public class Icms30Mapper {
 
-    public NFNotaInfoItemImpostoICMS30 map(IcmsTaxDto.Icms30Dto dto) {
+    public NFNotaInfoItemImpostoICMS30 mapIcms30(IcmsTaxDto.Icms30Dto dto) {
         NFNotaInfoItemImpostoICMS30 nfeIcms30 = new NFNotaInfoItemImpostoICMS30();
 
         nfeIcms30.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));

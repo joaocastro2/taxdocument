@@ -5,6 +5,8 @@ import com.example.taxdocument.nfe.dto.issuer.IssuerRequestDto;
 import com.example.taxdocument.nfe.dto.product.ItemTaxDto;
 import com.example.taxdocument.nfe.dto.product.ProductNfeDto;
 import com.example.taxdocument.nfe.dto.tax.IcmsTaxDto;
+import com.example.taxdocument.nfe.mapper.icms.Icms20Mapper;
+import com.example.taxdocument.nfe.mapper.icms.Icms30Mapper;
 import com.example.taxdocument.nfe.model.InfoNfeModel;
 import com.example.taxdocument.nfe.model.IssuerNfeModel;
 import com.example.taxdocument.nfe.model.ProductNfeModel;
@@ -126,135 +128,10 @@ public class NfeMapperService {
     }
 
     private NFNotaInfoItemImpostoICMS mapIcms(IcmsTaxDto dto) {
-        NFNotaInfoItemImpostoICMS icms = new NFNotaInfoItemImpostoICMS();
+        NFNotaInfoItemImpostoICMS container = new NFNotaInfoItemImpostoICMS();
 
-        if (dto.icms00() != null) {
-            icms.setIcms00(mapIcms00(dto.icms00()));
-        } else if (dto.icms10() != null) {
-            icms.setIcms10(mapIcms10(dto.icms10()));
-        }
 
-        return icms;
+
+        return container;
     }
-
-    private NFNotaInfoItemImpostoICMS00 mapIcms00(IcmsTaxDto.Icms00Dto dto) {
-        NFNotaInfoItemImpostoICMS00 nfeIcms00 = new NFNotaInfoItemImpostoICMS00();
-
-        nfeIcms00.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
-        nfeIcms00.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("00"));
-
-        if (dto.icmsModality() != null) {
-            nfeIcms00.setModalidadeBCICMS(NFNotaInfoItemModalidadeBCICMS.valueOfCodigo(dto.icmsModality().icmsModalityCodeDto()));
-        }
-
-        nfeIcms00.setValorBaseCalculo(new BigDecimal(dto.baseValue()));
-        nfeIcms00.setPercentualAliquota(new BigDecimal(dto.percentageRate()));
-        nfeIcms00.setValorTributo(new BigDecimal(dto.taxValue()));
-
-        return nfeIcms00;
-    }
-
-    private NFNotaInfoItemImpostoICMS10 mapIcms10(IcmsTaxDto.Icms10Dto dto) {
-        NFNotaInfoItemImpostoICMS10 nfeIcms10 = new NFNotaInfoItemImpostoICMS10();
-
-        nfeIcms10.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
-        nfeIcms10.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("10"));
-
-        if (dto.icmsModality() != null) {
-            nfeIcms10.setModalidadeBCICMS(NFNotaInfoItemModalidadeBCICMS.valueOfCodigo(dto.icmsModality().icmsModalityCodeDto()));
-        }
-        nfeIcms10.setValorBaseCalculo(new BigDecimal(dto.baseValue()));
-        nfeIcms10.setPercentualAliquota(new BigDecimal(dto.percentageRate()));
-        nfeIcms10.setValorTributo(new BigDecimal(dto.taxValue()));
-
-        var st = dto.substitutionTax();
-        if (st != null) {
-            nfeIcms10.setModalidadeBCICMSST(NFNotaInfoItemModalidadeBCICMSST.valueOfCodigo(String.valueOf(st.modality())));
-
-            if (st.mvaRate() != null && !st.mvaRate().isBlank()) {
-                nfeIcms10.setPercentualMargemValorAdicionadoICMSST(new BigDecimal(st.mvaRate()));
-            }
-
-            if (st.reductionRate() != null && !st.reductionRate().isBlank()) {
-                nfeIcms10.setPercentualReducaoBCICMSST(new BigDecimal(st.reductionRate()));
-            }
-
-            nfeIcms10.setValorBCICMSST(new BigDecimal(st.baseValue()));
-            nfeIcms10.setPercentualAliquotaImpostoICMSST(new BigDecimal(st.taxRate()));
-            nfeIcms10.setValorICMSST(new BigDecimal(st.taxValue()));
-        }
-
-        if (dto.povertyFund() != null) {
-            var fcp = dto.povertyFund();
-            nfeIcms10.setPercentualFundoCombatePobrezaST(new BigDecimal(fcp.taxRate()));
-            nfeIcms10.setValorFundoCombatePobrezaST(new BigDecimal(fcp.taxValue()));
-        }
-
-        return nfeIcms10;
-    }
-
-    private NFNotaInfoItemImpostoICMS15 mapIcms15(IcmsTaxDto.Icms15Dto dto) {
-        NFNotaInfoItemImpostoICMS15 nfeIcms15 = new NFNotaInfoItemImpostoICMS15();
-
-        nfeIcms15.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
-        nfeIcms15.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("15"));
-
-        nfeIcms15.setQuantidadeBaseCalculo(new BigDecimal(dto.adRemBaseQuantity()));
-        nfeIcms15.setPercentualAliquota(new BigDecimal(dto.adRemTaxRate()));
-        nfeIcms15.setValorTributo(new BigDecimal(dto.taxValue()));
-
-        nfeIcms15.setQuantidadeBaseCalculoTributadaSujeitaRetencao(new BigDecimal(dto.whBaseQuantity()));
-        nfeIcms15.setPercentualAliquotaRetencao(new BigDecimal(dto.whTaxRate()));
-        nfeIcms15.setValorTributoRetencao(new BigDecimal(dto.whTaxValue()));
-
-        if (dto.reductionPercentage() != null) {
-            nfeIcms15.setPercentualReducaoAliquota(new BigDecimal(dto.reductionPercentage()));
-        }
-
-        if (dto.reasonReduction() != null) {
-            nfeIcms15.setMotivoReducao(NFNotaMotivoReducaoADREM.valueOfCodigo(dto.reasonReduction().reasonFRcodeDto()));
-        }
-
-        return nfeIcms15;
-    }
-
-    private NFNotaInfoItemImpostoICMS20 mapIcms20(IcmsTaxDto.Icms20Dto dto) {
-        NFNotaInfoItemImpostoICMS20 nfeIcms20 = new NFNotaInfoItemImpostoICMS20();
-
-        nfeIcms20.setOrigem(NFOrigem.valueOfCodigo(dto.nfOrigin().codigo()));
-        nfeIcms20.setSituacaoTributaria(NFNotaInfoImpostoTributacaoICMS.valueOfCodigo("20"));
-
-        if (dto.modalidadeBCICMS() != null) {
-            nfeIcms20.setModalidadeBCICMS(NFNotaInfoItemModalidadeBCICMS.valueOfCodigo(dto.modalidadeBCICMS().icmsModalityCodeDto()));
-        }
-
-        nfeIcms20.setPercentualReducaoBC(new BigDecimal(dto.reduction().reductionPercentage()));
-
-        nfeIcms20.setValorBCICMS(new BigDecimal(dto.reduction().baseValue()));
-        nfeIcms20.setPercentualAliquota(new BigDecimal(dto.reduction().taxRate()));
-        nfeIcms20.setValorTributo(new BigDecimal(dto.reduction().taxValue()));
-
-        if (dto.povertyFund() != null) {
-            var fcp = dto.povertyFund();
-
-            nfeIcms20.setValorBCFundoCombatePobreza(new BigDecimal(fcp.baseValue()));
-            nfeIcms20.setPercentualFundoCombatePobreza(new BigDecimal(fcp.taxRate()));
-            nfeIcms20.setValorFundoCombatePobreza(new BigDecimal(fcp.taxValue()));
-        }
-
-        if (dto.excemptionValue() != null && !dto.excemptionValue().isBlank()) {
-            nfeIcms20.setValorICMSDesoneracao(new BigDecimal(dto.excemptionValue()));
-
-            if (dto.extemptionReason() != null) {
-                nfeIcms20.setDesoneracao(NFNotaMotivoDesoneracaoICMS.valueOfCodigo(dto.extemptionReason().codigo()));
-            }
-
-            if (dto.deductionTipe() != null) {
-                nfeIcms20.setIndicaDeduzDesoneracao(NFTipoDeducaoIcms.valueOfCodigo(dto.deductionTipe().deductTipeCodeDto()));
-            }
-        }
-
-        return nfeIcms20;
-    }
-
 }
